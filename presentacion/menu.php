@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="css/dataTables.bootstrap.css">
     <link rel="stylesheet" href="css/estilo.css">
 
+
+    <script src="libs/datatables.js"></script>
+    <script src="libs/dataTables.bootstrap4.js"></script>
+
   </head>
   <body>
     <div class="d-flex toggled" id="wrapper">
