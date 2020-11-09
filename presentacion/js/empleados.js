@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#tablaCategorias').DataTable({
+	$('#tablaEmpleados').DataTable({
 		language:{
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -32,19 +32,19 @@ $(document).ready(function(){
 
 	});
 });
-
-
-
 $(document).ready(function(){
 	//$('#tabla').load('tablas/tablaCategorias.php');
 
 	$("#guardarnuevo").click(function(){
-		idCategoria = $('#idCategoria').val();
+		idEmpleado = $('#idEmpleado').val();
 		nombre = $('#nombre').val();
+		usuario = $('#usuario').val();
+		correo = $('#correo').val();
+		password = $('#password').val();
 		estatus = $('#estatus').val();
 		opcion = "insertar";
 		
-		agregarCategoria(idCategoria, nombre, estatus, opcion);
+		agregarEmpleado(idEmpleado, nombre, usuario, correo, password,  estatus, opcion);
 	}); 
 
 	$('#actualizadatos').click(function(){
@@ -52,11 +52,11 @@ $(document).ready(function(){
 	});
 });
 
-function agregarCategoria(idCategoria, nombre, estatus, opcion){
-	cadena = "idCategoria="+idCategoria+"&nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
+function agregarEmpleado(idEmpleado, nombre, usuario, correo, password,  estatus, opcion){
+	cadena = "idEmpleado="+idEmpleado+"&nombre="+nombre+"&usuario="+usuario+"&correo="+correo+"&password="+password+"&estatus="+estatus+"&opcion="+opcion;
 	$.ajax({
 		type: "POST",
-		url: "../negociacion/NegCategorias.php",
+		url: "../negociacion/NegEmpleados.php",
 		data: cadena,
 		success: function(data){
 			console.log(data);
@@ -74,40 +74,45 @@ function agregarCategoria(idCategoria, nombre, estatus, opcion){
 function actualizaDatos(){
 
 
-	id=$('#idCategoriau').val();
-	nombre=$('#nombreu').val();
-	estatus=$('#estatusu').val();
+	idEmpleado = $('#idEmpleadou').val();
+	nombre = $('#nombreu').val();
+	usuario = $('#usuariou').val();
+	correo = $('#correou').val();
+	password = $('#passwordu').val();
+	passwordActual = $('#passwordActual').val();
+	estatus = $('#estatusu').val();
 	opcion = "modificar";
 
-	cadena= "idCategoria=" + id +
-	"&nombre=" + nombre + 
-	"&estatus=" + estatus+
-	"&opcion="+opcion;
-	console.log("Llego a actualizar");
+	cadena = "idEmpleado="+idEmpleado+"&nombre="+nombre+"&usuario="+usuario+"&correo="+correo+"&password="+password+"&passwordActual="+passwordActual+"&estatus="+estatus+"&opcion="+opcion;
+	//console.log("Llego a actualizar");
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegEmpleados.php",
 		data:cadena,
 		success:function(r){
-			console.log(r);
-			if(r==1){
-				
-				alertify.success("Actualizado con exito :)");
-				location.reload();
-			}else{
-				alertify.error("Fallo el servidor :(");
-			}
+		//	console.log(r);
+		if(r==1){
+
+			alertify.success("Actualizado con exito :)");
+			location.reload();
+		}else{
+			alertify.error("Fallo el servidor :(");
 		}
-	});
+	}
+});
 
 }
+
 function agregaform(datos){
 
 	d=datos.split('||');
 
-	$('#idCategoriau').val(d[0]);
+	$('#idEmpleadou').val(d[0]);
 	$('#nombreu').val(d[1]);
-	$('#estatusu').val(d[2]);
+	$('#usuariou').val(d[2]);
+	$('#passwordActual').val(d[3]);
+	$('#correou').val(d[4]);
+	$('#estatusu').val(d[5]);
 
 	
 }
@@ -120,11 +125,11 @@ function preguntarSiNo(id){
 
 function eliminarDatos(id){
 	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
+	cadena="idEmpleado="+ id+"&opcion="+opcion;
+//	console.log("llego a eliminar");
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegEmpleados.php",
 		data:cadena,
 		success:function(r){
 			console.log(r);
@@ -138,26 +143,3 @@ function eliminarDatos(id){
 		}
 	});
 }
-
-function eliminarDatos(id){
-	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
-	$.ajax({
-		type:"POST",
-		url:"../negociacion/NegCategorias.php",
-		data:cadena,
-		success:function(r){
-			console.log(r);
-			if(r==1){
-				
-				alertify.success("Eliminado con exito!");
-				location.reload();
-			}else{
-				alertify.error("Fallo el servidor :(");
-			}
-		}
-	});
-}
-
-

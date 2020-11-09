@@ -6,6 +6,13 @@ include "menu.php";
 
 ?>
 <div class="container">
+    <?php
+    require_once "../negociacion/NegEmpleados.php";
+
+    $negEmpledos = new NegEmpledos();
+    $dato = $negEmpledos->mostrar();
+
+    ?>
     <div class="row">
         <div class="col-sm-12">
             <br>
@@ -20,29 +27,38 @@ include "menu.php";
             <table class="table table-hover table-condensed table-bordered" id="tablaEmpleados">
                 <thead>
                     <tr>
-                    <td>#</td>
-                    <td>Nombre</td>
-                    <td>Usuario</td>
-                    <td>Correo</td>
-                    <td>Estatus</td>
-                    <td>Editar</td>
-                    <td>Eliminar</td>
-                </tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Correo</th>
+                        <th>Estatus</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    $contador= 1;
+                    foreach ($dato as $key => $dat) {
+                        $datos = $dat->{"idusuario"} . "||" . $dat->{"nombre"} . "||". $dat->{"usuario"} . "||" . $dat->{"password"} . "||" .$dat->{"correo"} . "||" . $dat->{"estatus"};
+                        ?>
                         <tr>
-                            <th>1</th>
-                            <td>Angel Alvarez</td>
-                            <td>Angel</td>
-                            <td>angel@gmail.com</td>
-                            <td>1</td>
+                            <th><?php echo ($contador); ?></th>
+                            <td><?php echo ($dat->{"nombre"}); ?></td>
+                            <td><?php echo ($dat->{"usuario"}); ?></td>
+                            <td><?php echo ($dat->{"correo"}); ?></td>
+                            <td><?php echo ($dat->{"estatus"}); ?></td>
                             <td>
-                                <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="">Editar</button>
+                                <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">Editar</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="">Eliminar</button>
+                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'idusuario'} ?>')">Eliminar</button>
                             </td>
                         </tr>
+                        <?php
+                        $contador++;
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -61,6 +77,7 @@ include "menu.php";
                 </button>
             </div>
             <div class="modal-body">
+                <input type="text" name="" id="idEmpleado" class="form-control input-sm" hidden>
                 <label>Nombre</label>
                 <input type="text" name="" id="nombre" class="form-control input-sm">
                 <label>Usuario</label>
@@ -91,17 +108,18 @@ include "menu.php";
                 </button>
             </div>
             <div class="modal-body">
-
+                <input type="text" name="" id="idEmpleadou" class="form-control input-sm" hidden>
                 <label>Nombre</label>
                 <input type="text" name="" id="nombreu" class="form-control input-sm">
                 <label>Usuario</label>
-                <input type="text" name="" id="usuariou" class="form-control input-sm">
+                <input type="text" name="" id="usuariou" class="form-control input-sm" readonly>
                 <label>Correo</label>
-                <input type="text" name="" id="correou" class="form-control input-sm">
+                <input type="email" name="" id="correou" class="form-control input-sm">
                 <label>Contraseña</label>
-                <input type="text" name="" id="passwordu" class="form-control input-sm">
+                <input type="password" name="" id="passwordu" class="form-control input-sm">
+                <input type="password" name="" id="passwordActual" class="form-control input-sm" hidden>
                 <label>Estatus</label>
-                <input type="text" name="" id="estatusu" class="form-control input-sm">
+                <input type="number" name="" id="estatusu" class="form-control input-sm">
             </div>
 
             <div class="modal-footer">
@@ -118,7 +136,7 @@ include "menu.php";
 
 <?php include "menuFin.php"; ?>
 
-
+<script src="js/empleados.js"></script>
 
 </body>
 

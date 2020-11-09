@@ -27,7 +27,7 @@
           <a href="#" class="list-group-item list-group-item-action bg-light">Inicio</a>
           <a href="#" class="list-group-item list-group-item-action bg-light">Ventas</a>
           <a href="#" class="list-group-item list-group-item-action bg-light">Inventario</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Usuario</a>
+          <a href="empleados.php" class="list-group-item list-group-item-action bg-light">Usuario</a>
           <a href="#" class="list-group-item list-group-item-action bg-light">Reportes</a>
           <a href="#" class="list-group-item list-group-item-action bg-light">Configuracion</a>
         </div>
