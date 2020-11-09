@@ -3,10 +3,10 @@ include "menu.php";
 ?>
 <div class="container">
     <?php
-    require_once "../negociacion/NegCategorias.php";
+    require_once "../negociacion/NegClientes.php";
 
-    $negCategoria = new NegCategoria();
-    $dato = $negCategoria->mostrar();
+    $negClientes = new NegClientes();
+    $dato = $negClientes->mostrar();
 
     ?>
 
@@ -17,35 +17,38 @@ include "menu.php";
             <caption>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">
                     Agregar nuevo
-                    <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </caption>
             <br>
             <br>
-            <table class="table table-hover table-condensed table-bordered" id="tablaCategorias">
+            <table class="table table-hover table-condensed table-bordered" id="tablaClientes">
                 <thead>
                     <tr>
-                    <td>#</td>
+                    <td>Id</td>
                     <td>Nombre</td>
-                    <td>Estatus</td>
-                    <td>Editar</td>
-                    <td>Eliminar</td>
+                    <td>Correo</td>
+                    <td>Telefono</td>
+                    <td>Direccion</td>
+                    <td>Status</td>
+                    <td>Opciones</td>
                 </tr>
                 </thead>
                 <tbody>
                     <?php
                     foreach ($dato as $dat) {
-                        $datos = $dat->{"id_categoria"} . "||" . $dat->{"nombre"} . "||" . $dat->{"estatus"};
+                        $datos = $dat->{"id_cliente"} . "||" . $dat->{"nombre"}. "||" . $dat->{"correo"}. "||" . $dat->{"telefono"}. "||" .$dat->{"direccion"}. "||" . $dat->{"estatus"};
                     ?>
                         <tr>
-                            <th><?php echo ($dat->{"id_categoria"}); ?> </th>
+                            <th><?php echo ($dat->{"id_cliente"}); ?> </th>
                             <td><?php echo ($dat->{"nombre"}); ?></td>
+                            <td><?php echo ($dat->{"correo"}); ?></td>
+                            <td><?php echo ($dat->{"telefono"}); ?></td>
+                            <td><?php echo ($dat->{"direccion"}); ?></td>
                             <td><?php echo ($dat->{"estatus"}); ?></td>
+
                             <td>
                                 <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">Editar</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_categoria'} ?>')">Eliminar</button>
+                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_categoria'} ?>')">Eliminar</button>                            
                             </td>
                         </tr>
                     <?php
@@ -64,21 +67,26 @@ include "menu.php";
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #28a745; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Nueva Categoria</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <label>idCategoria</label>
-                <input type="text" name="" id="idCategoria" class="form-control input-sm">
                 <label>Nombre</label>
                 <input type="text" name="" id="nombre" class="form-control input-sm">
-                <label>Estatus</label>
-                <input type="text" name="" id="estatus" class="form-control input-sm">
+                <label>Correo</label>
+                <input type="email" name="" id="email" class="form-control input-sm">
+                <label>Telefono</label>
+                <input type="text" name="" id="telefono" class="form-control input-sm">
+                <label>Direccion</label>
+                <input type="text" name="" id="direccion" class="form-control input-sm">
+                <label>Status
+                <input type="checkbox" name="" id="status" class="form-control input-sm">
+                </label>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="submit" id="guardarnuevo" class="btn btn-dark">Guardar</button>
+                <button type="button" id="guardarnuevo" class="btn btn-dark">Guardar</button>
             </div>
         </div>
     </div>
@@ -90,18 +98,24 @@ include "menu.php";
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #007bff; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-
-                <label>IdCategoria</label>
-                <input type="text" name="" id="idCategoriau" class="form-control input-sm">
+                <label>Id</label>
+                <input type="text" name="" id="idCliente" class="form-control input-sm">
                 <label>Nombre</label>
-                <input type="text" name="" id="nombreu" class="form-control input-sm">
-                <label>Estatus</label>
-                <input type="text" name="" id="estatusu" class="form-control input-sm">
+                <input type="text" name="" id="nombreMod" class="form-control input-sm">
+                <label>Correo</label>
+                <input type="email" name="" id="emailMod" class="form-control input-sm">
+                <label>Telefono</label>
+                <input type="text" name="" id="telefonoMod" class="form-control input-sm">
+                <label>Direccion</label>
+                <input type="text" name="" id="direccionMod" class="form-control input-sm">
+                <label>Status
+                <input type="checkbox" name="" id="statusMod" class="form-control input-sm">
+                </label>
             </div>
 
             <div class="modal-footer">
@@ -119,7 +133,7 @@ include "menu.php";
 <?php include "menuFin.php"; ?>
 
 
-<script src="js/categorias.js"></script>
+<script src="js/clientes.js"></script>
 
 </body>
 

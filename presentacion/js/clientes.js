@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#tablaCategorias').DataTable({
+	$('#tablaClientes').DataTable({
 		language:{
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -36,15 +36,15 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-	//$('#tabla').load('tablas/tablaCategorias.php');
-
 	$("#guardarnuevo").click(function(){
-		idCategoria = $('#idCategoria').val();
 		nombre = $('#nombre').val();
-		estatus = $('#estatus').val();
+        email = $('#email').val();
+        telefono = $('#telefono').val();
+        direccion = $('#direccion').val();
+		status = $('#status').val();
 		opcion = "insertar";
 		
-		agregarCategoria(idCategoria, nombre, estatus, opcion);
+		agregarCliente(nombre,email,telefono,direccion,estatus,opcion);
 	}); 
 
 	$('#actualizadatos').click(function(){
@@ -52,14 +52,15 @@ $(document).ready(function(){
 	});
 });
 
-function agregarCategoria(idCategoria, nombre, estatus, opcion){
-	cadena = "idCategoria="+idCategoria+"&nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
+function agregarCliente(nombre,email,telefono,direccion,estatus,opcion){
+	cadena = "nombre="+nombre+"&email="+email+"&telefono="+telefono+"&direccion="+direccion+"&estatus="+estatus+"&opcion="+opcion;
 	$.ajax({
 		type: "POST",
-		url: "../negociacion/NegCategorias.php",
+		url: "../negociacion/NegClientes.php",
 		data: cadena,
 		success: function(data){
-			console.log(data);
+            console.log(data);
+            alert("Hola");
 			if(data>=1){
 				
 				alertify.success("agregado con exito :D");
@@ -86,7 +87,7 @@ function actualizaDatos(){
 	console.log("Llego a actualizar");
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegClientes.php",
 		data:cadena,
 		success:function(r){
 			console.log(r);
@@ -124,7 +125,7 @@ function eliminarDatos(id){
 	console.log("llego a eliminar");
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegClientes.php",
 		data:cadena,
 		success:function(r){
 			console.log(r);
@@ -145,7 +146,7 @@ function eliminarDatos(id){
 	console.log("llego a eliminar");
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegClientes.php",
 		data:cadena,
 		success:function(r){
 			console.log(r);
