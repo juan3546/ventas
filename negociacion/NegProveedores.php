@@ -4,8 +4,8 @@ require_once '../Datos/DaoProveedor.php';
 require_once '../Pojos/PojoProveedor.php';
 
 // Recepción de los datos enviados mediante POST desde el JS   
-$daoCategoria = new DaoProveedor();
-$pojoCategoria = new PojoProveedor();
+$daoProveedor = new DaoProveedor();
+$pojoProveedor = new PojoProveedor();
 $dato = "";
 $datos = "";
 $registro = "";
@@ -13,36 +13,35 @@ $registro = "";
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $estatus = (isset($_POST['estatus'])) ? $_POST['estatus'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$id = (isset($_POST['idCategoria'])) ? $_POST['idCategoria'] : '';
+$id = (isset($_POST['id_proveedor'])) ? $_POST['id_proveedor'] : '';
 
 switch($opcion){
     case "insertar": //alta
-        $pojoCategoria->id_categoria = null;
-        $pojoCategoria->nombre = $nombre;
-        $pojoCategoria->estatus = intval($estatus);
-        $registro = $daoCategoria->registrarCategoria($pojoCategoria);
-        $dato = $daoCategoria->getDatosCategoriaTabla();
+        $pojoProveedor->nombre = $nombre;
+        $pojoProveedor->estatus = $estatus;
+        $registro = $daoProveedor->registrarProveedor($pojoProveedor);
+        $dato = $daoProveedor->getDatosProveedor();
         break;
     case "modificar":
-        $pojoCategoria->id_categoria = $id;
-        $pojoCategoria->nombre = $nombre;
-        $pojoCategoria->estatus = $estatus;
-        $registro = $daoCategoria->editarCategoria($pojoCategoria);
-        $dato = $daoCategoria->getDatosCategoriaTabla();
+        $pojoProveedor->id_categoria = $id;
+        $pojoProveedor->nombre = $nombre;
+        $pojoProveedor->estatus = $estatus;
+        $registro = $daoProveedor->editarProveedor($pojoProveedor);
+        $dato = $daoProveedor->getDatosProveedor();
     break;
     case "eliminar":
-        $registro = $daoCategoria->EliminarEstatusCategoria($id);
+        $registro = $daoProveedor->eliminarProveedor($id);
     break;      
 }
 
 
 echo  $registro;
 
-class NegCategoria{
+class NegProveedores{
 
     function mostrar(){
-        $daoCategoria = new DaoCategoria();
-        $datos = $daoCategoria->getDatosCategoria();
+        $daoProveedor = new daoProveedor();
+        $datos = $daoProveedor->getDatosProveedor();
         return $datos; 
     }
 }?>

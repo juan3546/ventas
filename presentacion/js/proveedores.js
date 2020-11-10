@@ -39,12 +39,17 @@ $(document).ready(function(){
 	//$('#tabla').load('tablas/tablaCategorias.php');
 
 	$("#guardarnuevo").click(function(){
-		idCategoria = $('#idCategoria').val();
+		idProveedor = $('#idProveedor').val();
 		nombre = $('#nombre').val();
-		estatus = $('#estatus').val();
+		if($('#status').prop('checked')){
+			alert("Esta Activo");
+			status = 1;
+		}else{
+			status = 0;
+		}
 		opcion = "insertar";
 		
-		agregarCategoria(idCategoria, nombre, estatus, opcion);
+		agregarProveedor(idProveedor, nombre, status, opcion);
 	}); 
 
 	$('#actualizadatos').click(function(){
@@ -52,11 +57,11 @@ $(document).ready(function(){
 	});
 });
 
-function agregarCategoria(idCategoria, nombre, estatus, opcion){
-	cadena = "idCategoria="+idCategoria+"&nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
+function agregarProveedor(idProveedor, nombre, status, opcion){
+	cadena = "id_proveedor="+idProveedor+"&nombre="+nombre+"&estatus="+status+"&opcion="+opcion;
 	$.ajax({
 		type: "POST",
-		url: "../negociacion/NegCategorias.php",
+		url: "../negociacion/NegProveedores.php",
 		data: cadena,
 		success: function(data){
 			console.log(data);

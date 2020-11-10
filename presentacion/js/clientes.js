@@ -40,11 +40,16 @@ $(document).ready(function(){
 		nombre = $('#nombre').val();
         email = $('#email').val();
         telefono = $('#telefono').val();
-        direccion = $('#direccion').val();
-		status = $('#status').val();
+		direccion = $('#direccion').val();
+		if($('#status').prop('checked')){
+			alert("Esta Activo");
+			status = 1;
+		}else{
+			status = 0;
+		}
 		opcion = "insertar";
 		
-		agregarCliente(nombre,email,telefono,direccion,estatus,opcion);
+		agregarCliente(nombre,email,telefono,direccion,status,opcion);
 	}); 
 
 	$('#actualizadatos').click(function(){
