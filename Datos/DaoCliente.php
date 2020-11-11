@@ -127,12 +127,12 @@ class DaoCliente
     $sentenciaSQL = $this->conexion->prepare($sql); 
     $sentenciaSQL->execute(
     array(
-      $obj->id_cliente,
       $obj->nombre,
       $obj->correo,
       $obj->telefono,
       $obj->direccion,
-      $obj->estatus
+      $obj->estatus,
+      $obj->id_cliente
       ));
     return true;
     Conexion::cerrarConexion();

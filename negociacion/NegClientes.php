@@ -11,12 +11,12 @@ $datos = "";
 $registro = "";
 
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
-$correo = (isset($_POST['correo'])) ? $_POST['correo'] : '';
+$correo = (isset($_POST['email'])) ? $_POST['email'] : '';
 $telefono = (isset($_POST['telefono'])) ? $_POST['telefono'] : '';
 $direccion = (isset($_POST['direccion'])) ? $_POST['direccion'] : '';
 $estatus = (isset($_POST['estatus'])) ? $_POST['estatus'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$id = (isset($_POST['idCliente'])) ? $_POST['idCliente'] : '';
+$id = (isset($_POST['id_cliente'])) ? $_POST['id_cliente'] : '';
 
 switch($opcion){
     case "insertar": //alta
@@ -29,14 +29,17 @@ switch($opcion){
         $dato = $daoCliente->getDatosCliente();
         break;
     case "modificar":
-        $pojoCliente->id_categoria = $id;
+        $pojoCliente->id_cliente = $id;
         $pojoCliente->nombre = $nombre;
+        $pojoCliente->correo = $correo;
+        $pojoCliente->telefono = $telefono;
+        $pojoCliente->direccion = $direccion;
         $pojoCliente->estatus = $estatus;
-        $registro = $daoCliente->editarCategoria($pojoCliente);
-        $dato = $daoCliente->getDatosCategoriaTabla();
+        $registro = $daoCliente->editarCliente($pojoCliente);
+        $dato = $daoCliente->getDatosCliente();
     break;
     case "eliminar":
-        $registro = $daoCliente->EliminarEstatusCategoria($id);
+        $registro = $daoCliente->eliminarCliente($id);
     break;      
 }
 
