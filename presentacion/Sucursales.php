@@ -3,10 +3,10 @@ include "menu.php";
 ?>
 <div class="container">
     <?php
-    require_once "../negociacion/NegCategorias.php";
+    require_once "../negociacion/NegSucursales.php";
 
-    $negCategoria = new NegCategoria();
-    $dato = $negCategoria->mostrar();
+    $negSucursal = new NegSucursales();
+    $dato = $negSucursal->mostrar();
 
     ?>
     <div class="row">
@@ -24,7 +24,9 @@ include "menu.php";
                 <thead>
                     <tr>
                     <td>#</td>
+                    <td>Id_Nombre_Precio</td>
                     <td>Nombre</td>
+                    <td>No_Corte</td>
                     <td>Estatus</td>
                     <td>Editar</td>
                     <td>Eliminar</td>
@@ -33,17 +35,19 @@ include "menu.php";
                 <tbody>
                     <?php
                     foreach ($dato as $dat) {
-                        $datos = $dat->{"id_categoria"} . "||" . $dat->{"nombre"} . "||" . $dat->{"estatus"};
+                        $datos = $dat->{"id_sucursal"} . "||" . $dat->{"id_nombre_precio"} . "||" . $dat->{"nombre"}. "||" . $dat->{"no_corte"}. "||" . $dat->{"estatus"};
                     ?>
                         <tr>
-                            <th><?php echo ($dat->{"id_categoria"}); ?> </th>
+                            <th><?php echo ($dat->{"id_sucursal"}); ?> </th>
+                            <th><?php echo ($dat->{"id_nombre_precio"}); ?> </th>
                             <td><?php echo ($dat->{"nombre"}); ?></td>
+                            <th><?php echo ($dat->{"no_corte"}); ?> </th>
                             <td><?php echo ($dat->{"estatus"}); ?></td>
                             <td>
                                 <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">Editar</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_categoria'} ?>')">Eliminar</button>
+                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_sucursal'} ?>')">Eliminar</button>
                             </td>
                         </tr>
                     <?php
@@ -62,17 +66,22 @@ include "menu.php";
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #28a745; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Nueva Categoria</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nueva Sucursal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <label>idCategoria</label>
-                <input type="text" name="" id="idCategoria" class="form-control input-sm">
+                <label>id_nombre_precio</label>
+                <input type="text" name="id_nombre_precio" id="id_nombre_precio" class="form-control input-sm">
                 <label>Nombre</label>
-                <input type="text" name="" id="nombre" class="form-control input-sm">
+                <input type="text" name="nombre" id="nombre" class="form-control input-sm">
+                <label>no_corte</label>
+                <input type="text" name="no_corte" id="no_corte" class="form-control input-sm">
                 <label>Estatus</label>
-                <input type="text" name="" id="estatus" class="form-control input-sm">
+                <select name="estatus" id="estatus" class="form-control input-sm">
+                	<option value="0">0</option>
+                	<option value="1">1</option>
+                </select>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
@@ -88,18 +97,24 @@ include "menu.php";
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #007bff; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar Sucursal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-
-                <label>IdCategoria</label>
-                <input type="text" name="" id="idCategoriau" class="form-control input-sm">
+            	<label>id_sucursal</label>
+                <input type="text" name="id_sucursal" id="id_sucursal2" class="form-control input-sm" readonly="true">
+                <label>id_nombre_precio</label>
+                <input type="text" name="id_nombre_precio" id="id_nombre_precio2" class="form-control input-sm">
                 <label>Nombre</label>
-                <input type="text" name="" id="nombreu" class="form-control input-sm">
+                <input type="text" name="nombre" id="nombre2" class="form-control input-sm">
+                <label>no_corte</label>
+                <input type="text" name="no_corte" id="no_corte2" class="form-control input-sm">
                 <label>Estatus</label>
-                <input type="text" name="" id="estatusu" class="form-control input-sm">
+                <select name="estatus" id="estatus2" class="form-control input-sm">
+                	<option value="0">0</option>
+                	<option value="1">1</option>
+                </select>
             </div>
 
             <div class="modal-footer">
@@ -109,15 +124,10 @@ include "menu.php";
         </div>
     </div>
 </div>
-
-</div>
-
-</div>
-
 <?php include "menuFin.php"; ?>
 
 
-<script src="js/categorias.js"></script>
+<script src="js/sucursales.js"></script>
 
 </body>
 
