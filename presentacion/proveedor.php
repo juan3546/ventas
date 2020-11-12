@@ -21,7 +21,7 @@ include "menu.php";
             </caption>
             <br>
             <br>
-            <table class="table table-hover table-condensed table-bordered" id="tablaClientes">
+            <table class="table table-hover table-condensed table-bordered" id="tablaProveedores">
                 <thead>
                     <tr>
                     <td>Id</td>
