@@ -36,7 +36,6 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-	//$('#tabla').load('tablas/tablaCategorias.php');
 
 	$("#guardarnuevo").click(function(){
 		idProveedor = $('#idProveedor').val();
@@ -79,24 +78,25 @@ function agregarProveedor(idProveedor, nombre, status, opcion){
 function actualizaDatos(){
 
 
-	id=$('#idCategoriau').val();
-	nombre=$('#nombreu').val();
-	estatus=$('#estatusu').val();
+	id=$('#idProveedor').val();
+	nombre=$('#nombreMod').val();
+	if($('#statusMod').prop('checked')){
+		status = 1;
+	}else{
+		status = 0;
+	}
 	opcion = "modificar";
 
-	cadena= "idCategoria=" + id +
+	cadena= "id_proveedor=" + id +
 	"&nombre=" + nombre + 
-	"&estatus=" + estatus+
+	"&estatus=" + status+
 	"&opcion="+opcion;
-	console.log("Llego a actualizar");
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegProveedores.php",
 		data:cadena,
 		success:function(r){
-			console.log(r);
 			if(r==1){
-				
 				alertify.success("Actualizado con exito :)");
 				location.reload();
 			}else{
@@ -104,17 +104,15 @@ function actualizaDatos(){
 			}
 		}
 	});
-
 }
 function agregaform(datos){
 
 	d=datos.split('||');
-
-	$('#idCategoriau').val(d[0]);
-	$('#nombreu').val(d[1]);
-	$('#estatusu').val(d[2]);
-
-	
+	$('#idProveedor').val(d[0]);
+	$('#nombreMod').val(d[1]);
+	if(d[2] == 1){
+		$("#statusMod").prop('checked', true);
+	}
 }
 
 function preguntarSiNo(id){
@@ -125,32 +123,10 @@ function preguntarSiNo(id){
 
 function eliminarDatos(id){
 	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
+	cadena="id_proveedor="+ id+"&opcion="+opcion;
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegCategorias.php",
-		data:cadena,
-		success:function(r){
-			console.log(r);
-			if(r==1){
-				
-				alertify.success("Eliminado con exito!");
-				location.reload();
-			}else{
-				alertify.error("Fallo el servidor :(");
-			}
-		}
-	});
-}
-
-function eliminarDatos(id){
-	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
-	$.ajax({
-		type:"POST",
-		url:"../negociacion/NegCategorias.php",
+		url:"../negociacion/NegProveedores.php",
 		data:cadena,
 		success:function(r){
 			console.log(r);

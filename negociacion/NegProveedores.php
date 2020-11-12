@@ -23,7 +23,7 @@ switch($opcion){
         $dato = $daoProveedor->getDatosProveedor();
         break;
     case "modificar":
-        $pojoProveedor->id_categoria = $id;
+        $pojoProveedor->id_proveedor = $id;
         $pojoProveedor->nombre = $nombre;
         $pojoProveedor->estatus = $estatus;
         $registro = $daoProveedor->editarProveedor($pojoProveedor);

@@ -33,16 +33,15 @@ include "menu.php";
                 <tbody>
                     <?php
                     foreach ($dato as $dat) {
-                        $datos = $dat->{"id_proveedor"} . "||" . $dat->{"nombre"} . $dat->{"estatus"};
+                        $datos = $dat->{"id_proveedor"} . "||" . $dat->{"nombre"} . "||" . $dat->{"estatus"};
                     ?>
                         <tr>
                             <th><?php echo ($dat->{"id_proveedor"}); ?> </th>
                             <td><?php echo ($dat->{"nombre"}); ?></td>
                             <td><?php echo ($dat->{"estatus"}); ?></td>
-
                             <td>
                                 <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">Editar</button>
-                                <button class="btn btn-danger" onclick="preguntarSiNo('<?php echo $dat->{'id_categoria'} ?>')">Eliminar</button>                            
+                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_proveedor'} ?>')">Eliminar</button>                            
                             </td>
                         </tr>
                     <?php
@@ -92,7 +91,7 @@ include "menu.php";
             </div>
             <div class="modal-body">
                 <label>Id</label>
-                <input type="text" name="" id="idProveedor" class="form-control input-sm">
+                <input type="text" name="" id="idProveedor" class="form-control input-sm" readonly>
                 <label>Nombre</label>
                 <input type="text" name="" id="nombreMod" class="form-control input-sm">
                 <label>Status
