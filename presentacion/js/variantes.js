@@ -1,4 +1,4 @@
-$(document).ready(function(){
+ $(document).ready(function(){
 	$('#tablaCategorias').DataTable({
 		language:{
 			"sProcessing":     "Procesando...",
@@ -33,18 +33,15 @@ $(document).ready(function(){
 	});
 });
 
-$(document).ready(function(){
+ $(document).ready(function(){
 	//$('#tabla').load('tablas/tablaCategorias.php');
 
 	$("#guardarnuevo").click(function(){
-		//idCategoria = $('#idCategoria').val();
-		id_nombre_precio = $('#id_nombre_precio').val();
 		nombre = $('#nombre').val();
-		no_corte = $('#no_corte').val();
 		estatus = $('#estatus').val();
 		opcion = "insertar";
 	
-		agregarSucursal(id_nombre_precio, nombre, no_corte, estatus, opcion);
+		agregarVariante(nombre, estatus, opcion);
 	}); 
 
 	$('#actualizadatos').click(function(){
@@ -52,11 +49,11 @@ $(document).ready(function(){
 	});
 });
 
-function agregarSucursal(id_nombre_precio, nombre, no_corte, estatus, opcion){
-	cadena = "id_nombre_precio="+id_nombre_precio+"&nombre="+nombre+"&no_corte="+no_corte+"&estatus="+estatus+"&opcion="+opcion;
+function agregarVariante(nombre, estatus, opcion){
+	cadena = "nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
 	$.ajax({
 		type: "POST",
-		url: "../negociacion/NegSucursales.php",
+		url: "../negociacion/NegVariantes.php",
 		data: cadena,
 		success: function(data){
 			console.log(data);
@@ -71,18 +68,16 @@ function agregarSucursal(id_nombre_precio, nombre, no_corte, estatus, opcion){
 }
 
 function actualizaDatos(){
-	id_sucursal=$('#id_sucursal2').val();
-	id_nombre_precio = $('#id_nombre_precio2').val();
+	id_variante=$('#id_variante2').val();
 	nombre = $('#nombre2').val();
-	no_corte = $('#no_corte2').val();
 	estatus = $('#estatus2').val();
 	opcion = "modificar";
 
-	cadena= "id_sucursal="+id_sucursal+"&id_nombre_precio="+id_nombre_precio+"&nombre="+nombre+"&no_corte="+no_corte+"&estatus="+estatus+"&opcion="+opcion;
+	cadena= "id_variante="+id_variante+"&nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
 
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegSucursales.php",
+		url:"../negociacion/NegVariantes.php",
 		data:cadena,
 		success:function(r){
 			console.log(r);
@@ -95,16 +90,13 @@ function actualizaDatos(){
 		}
 	});
 
-} 
+}
 function agregaform(datos){
 
 	d=datos.split('||');
-
-    $('#id_sucursal2').val(d[0]);
-	$('#id_nombre_precio2').val(d[1]);
-	$('#nombre2').val(d[2]);	
-	$('#no_corte2').val(d[3]);
-	$('#estatus2').val(d[4]);
+	$('#id_variante2'). val(d[0])
+	$('#nombre2').val(d[1]);	
+	$('#estatus2').val(d[2]);
 }
 
 function preguntarSiNo(id){
@@ -115,35 +107,13 @@ function preguntarSiNo(id){
 
 function eliminarDatos(id){
 	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
+	cadena="id_variante ="+ id +"&opcion="+opcion;
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegSucursales.php",
+		url:"../negociacion/NegVariantes.php",
 		data:cadena,
 		success:function(r){
-			console.log(r);
 			if(r==1){		
-				alertify.success("Eliminado con exito!");
-				location.reload();
-			}else{
-				alertify.error("Fallo el servidor :(");
-			}
-		}
-	});
-}
-
-function eliminarDatos(id){
-	opcion = "eliminar";
-	cadena="id_sucursal="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
-	$.ajax({
-		type:"POST",
-		url:"../negociacion/NegSucursales.php",
-		data:cadena,
-		success:function(r){
-			console.log(r);
-			if(r==1){
 				alertify.success("Eliminado con exito!");
 				location.reload();
 			}else{
