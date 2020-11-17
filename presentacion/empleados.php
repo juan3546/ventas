@@ -1,6 +1,6 @@
 <?php
 include "menu.php";
-
+require "index.php";
 
 
 
@@ -8,6 +8,7 @@ include "menu.php";
 <div class="container">
     <?php
     require_once "../negociacion/NegEmpleados.php";
+    
 
     $negEmpledos = new NegEmpledos();
     $dato = $negEmpledos->mostrar();
