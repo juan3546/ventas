@@ -1,5 +1,5 @@
-$(document).ready(function(){
-	$('#tablaProveedores').DataTable({
+ $(document).ready(function(){
+	$('#tablaCategorias').DataTable({
 		language:{
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -33,22 +33,15 @@ $(document).ready(function(){
 	});
 });
 
-
-
-$(document).ready(function(){
+ $(document).ready(function(){
+	//$('#tabla').load('tablas/tablaCategorias.php');
 
 	$("#guardarnuevo").click(function(){
-		idProveedor = $('#idProveedor').val();
 		nombre = $('#nombre').val();
-		if($('#status').prop('checked')){
-			alert("Esta Activo");
-			status = 1;
-		}else{
-			status = 0;
-		}
+		estatus = $('#estatus').val();
 		opcion = "insertar";
-		
-		agregarProveedor(idProveedor, nombre, status, opcion);
+	
+		agregarVariante(nombre, estatus, opcion);
 	}); 
 
 	$('#actualizadatos').click(function(){
@@ -56,16 +49,15 @@ $(document).ready(function(){
 	});
 });
 
-function agregarProveedor(idProveedor, nombre, status, opcion){
-	cadena = "id_proveedor="+idProveedor+"&nombre="+nombre+"&estatus="+status+"&opcion="+opcion;
+function agregarVariante(nombre, estatus, opcion){
+	cadena = "nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
 	$.ajax({
 		type: "POST",
-		url: "../negociacion/NegProveedores.php",
+		url: "../negociacion/NegVariantes.php",
 		data: cadena,
 		success: function(data){
 			console.log(data);
 			if(data>=1){
-				
 				alertify.success("agregado con exito :D");
 				location.reload();
 			}else{
@@ -76,26 +68,19 @@ function agregarProveedor(idProveedor, nombre, status, opcion){
 }
 
 function actualizaDatos(){
-
-
-	id=$('#idProveedor').val();
-	nombre=$('#nombreMod').val();
-	if($('#statusMod').prop('checked')){
-		status = 1;
-	}else{
-		status = 0;
-	}
+	id_variante=$('#id_variante2').val();
+	nombre = $('#nombre2').val();
+	estatus = $('#estatus2').val();
 	opcion = "modificar";
 
-	cadena= "id_proveedor=" + id +
-	"&nombre=" + nombre + 
-	"&estatus=" + status+
-	"&opcion="+opcion;
+	cadena= "id_variante="+id_variante+"&nombre="+nombre+"&estatus="+estatus+"&opcion="+opcion;
+
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegProveedores.php",
+		url:"../negociacion/NegVariantes.php",
 		data:cadena,
 		success:function(r){
+			console.log(r);
 			if(r==1){
 				alertify.success("Actualizado con exito :)");
 				location.reload();
@@ -104,15 +89,14 @@ function actualizaDatos(){
 			}
 		}
 	});
+
 }
 function agregaform(datos){
 
 	d=datos.split('||');
-	$('#idProveedor').val(d[0]);
-	$('#nombreMod').val(d[1]);
-	if(d[2] == 1){
-		$("#statusMod").prop('checked', true);
-	}
+	$('#id_variante2'). val(d[0])
+	$('#nombre2').val(d[1]);	
+	$('#estatus2').val(d[2]);
 }
 
 function preguntarSiNo(id){
@@ -123,15 +107,13 @@ function preguntarSiNo(id){
 
 function eliminarDatos(id){
 	opcion = "eliminar";
-	cadena="id_proveedor="+ id+"&opcion="+opcion;
+	cadena="id_variante ="+ id +"&opcion="+opcion;
 	$.ajax({
 		type:"POST",
-		url:"../negociacion/NegProveedores.php",
+		url:"../negociacion/NegVariantes.php",
 		data:cadena,
 		success:function(r){
-			console.log(r);
-			if(r==1){
-				
+			if(r==1){		
 				alertify.success("Eliminado con exito!");
 				location.reload();
 			}else{

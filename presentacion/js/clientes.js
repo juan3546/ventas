@@ -1,5 +1,9 @@
 $(document).ready(function(){
-	$('#tablaClientes').DataTable({
+	$("#nombre").val("");
+	$("#email").val("");
+	$("#telefono").val("");
+	$("#direccion").val("");
+	var t = $('#tablaClientes').DataTable({
 		language:{
 			"sProcessing":     "Procesando...",
 			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -38,13 +42,21 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#guardarnuevo").click(function(){
 		nombre = $('#nombre').val();
-        email = $('#email').val();
+		email = $('#email').val();
         telefono = $('#telefono').val();
-        direccion = $('#direccion').val();
-		status = $('#status').val();
+		direccion = $('#direccion').val();
+		if($('#status').prop('checked')){
+			status = 1;
+		}else{
+			status = 0;
+		}
 		opcion = "insertar";
 		
-		agregarCliente(nombre,email,telefono,direccion,estatus,opcion);
+		agregarCliente(nombre,email,telefono,direccion,status,opcion);
+		$("#nombre").val("");
+		$("#email").val("");
+		$("#telefono").val("");
+		$("#direccion").val("");
 	}); 
 
 	$('#actualizadatos').click(function(){
@@ -59,10 +71,7 @@ function agregarCliente(nombre,email,telefono,direccion,estatus,opcion){
 		url: "../negociacion/NegClientes.php",
 		data: cadena,
 		success: function(data){
-            console.log(data);
-            alert("Hola");
 			if(data>=1){
-				
 				alertify.success("agregado con exito :D");
 				location.reload();
 			}else{
@@ -73,26 +82,31 @@ function agregarCliente(nombre,email,telefono,direccion,estatus,opcion){
 }
 
 function actualizaDatos(){
-
-
-	id=$('#idCategoriau').val();
-	nombre=$('#nombreu').val();
-	estatus=$('#estatusu').val();
+	
+	id=$('#idCliente').val();
+	nombre=$('#nombreMod').val();
+	email=$('#emailMod').val();
+	telefono=$('#telefonoMod').val();
+	direccion=$('#direccionMod').val();
+	if($('#statusMod').prop('checked')){
+		status = 1;
+	}else{
+		status = 0;
+	}
 	opcion = "modificar";
-
-	cadena= "idCategoria=" + id +
+	cadena= "id_cliente=" + id +
 	"&nombre=" + nombre + 
-	"&estatus=" + estatus+
+	"&email=" + email + 
+	"&telefono=" + telefono+
+	"&direccion=" + direccion + 
+	"&estatus=" + status+
 	"&opcion="+opcion;
-	console.log("Llego a actualizar");
 	$.ajax({
 		type:"POST",
 		url:"../negociacion/NegClientes.php",
 		data:cadena,
 		success:function(r){
-			console.log(r);
 			if(r==1){
-				
 				alertify.success("Actualizado con exito :)");
 				location.reload();
 			}else{
@@ -106,12 +120,16 @@ function agregaform(datos){
 
 	d=datos.split('||');
 
-	$('#idCategoriau').val(d[0]);
-	$('#nombreu').val(d[1]);
-	$('#estatusu').val(d[2]);
-
-	
+	$('#idCliente').val(d[0]);
+	$('#nombreMod').val(d[1]);
+	$('#emailMod').val(d[2]);
+	$('#telefonoMod').val(d[3]);
+	$('#direccionMod').val(d[4]);
+	if(d[5] == 1){
+		$("#statusMod").prop('checked', true);
+	}
 }
+
 
 function preguntarSiNo(id){
 	alertify.confirm('Eliminar Datos', '¿Esta seguro de eliminar este registro?', 
@@ -121,28 +139,7 @@ function preguntarSiNo(id){
 
 function eliminarDatos(id){
 	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
-	console.log("llego a eliminar");
-	$.ajax({
-		type:"POST",
-		url:"../negociacion/NegClientes.php",
-		data:cadena,
-		success:function(r){
-			console.log(r);
-			if(r==1){
-				
-				alertify.success("Eliminado con exito!");
-				location.reload();
-			}else{
-				alertify.error("Fallo el servidor :(");
-			}
-		}
-	});
-}
-
-function eliminarDatos(id){
-	opcion = "eliminar";
-	cadena="idCategoria="+ id+"&opcion="+opcion;
+	cadena="id_cliente="+ id+"&opcion="+opcion;
 	console.log("llego a eliminar");
 	$.ajax({
 		type:"POST",

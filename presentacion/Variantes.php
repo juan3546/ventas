@@ -1,12 +1,12 @@
-<?php
+ <?php
 include "menu.php";
 ?>
 <div class="container">
     <?php
-    require_once "../negociacion/NegCategorias.php";
+    require_once "../negociacion/NegVariantes.php";
 
-    $negCategoria = new NegCategoria();
-    $dato = $negCategoria->mostrar();
+    $negVariante = new NegVariantes();
+    $dato = $negVariante->mostrar();
 
     ?>
     <div class="row">
@@ -29,21 +29,21 @@ include "menu.php";
                     <td>Editar</td>
                     <td>Eliminar</td>
                 </tr>
-                </thead>
+                </thead> 
                 <tbody>
                     <?php
                     foreach ($dato as $dat) {
-                        $datos = $dat->{"id_categoria"} . "||" . $dat->{"nombre"} . "||" . $dat->{"estatus"};
+                       $datos = $dat->{"id_variante"} . "||" . $dat->{"nombre"} . "||" . $dat->{"estatus"};
                     ?>
                         <tr>
-                            <th><?php echo ($dat->{"id_categoria"}); ?> </th>
+                            <th><?php echo ($dat->{"id_variante"}); ?> </th>
                             <td><?php echo ($dat->{"nombre"}); ?></td>
                             <td><?php echo ($dat->{"estatus"}); ?></td>
                             <td>
                                 <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">Editar</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_categoria'} ?>')">Eliminar</button>
+                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_variante'} ?>')">Eliminar</button>
                             </td>
                         </tr>
                     <?php
@@ -62,17 +62,18 @@ include "menu.php";
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #28a745; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Nueva Categoria</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nueva Variante</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <label>idCategoria</label>
-                <input type="text" name="" id="idCategoria" class="form-control input-sm">
                 <label>Nombre</label>
-                <input type="text" name="" id="nombre" class="form-control input-sm">
+                <input type="text" name="nombre" id="nombre" class="form-control input-sm">
                 <label>Estatus</label>
-                <input type="text" name="" id="estatus" class="form-control input-sm">
+                <select name="estatus" id="estatus" class="form-control input-sm">
+                	<option value="0">0</option>
+                	<option value="1">1</option>
+                </select>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
@@ -88,18 +89,20 @@ include "menu.php";
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #007bff; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editar Variante</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-
-                <label>IdCategoria</label>
-                <input type="text" name="" id="idCategoriau" class="form-control input-sm">
-                <label>Nombre</label>
-                <input type="text" name="" id="nombreu" class="form-control input-sm">
+            	<label>Id Variante</label>
+                <input type="text" name="id_variante" id="id_variante2" class="form-control input-sm">
+            	<label>Nombre</label>
+                <input type="text" name="nombre" id="nombre2" class="form-control input-sm">
                 <label>Estatus</label>
-                <input type="text" name="" id="estatusu" class="form-control input-sm">
+                <select name="estatus" id="estatus2" class="form-control input-sm">
+                	<option value="0">0</option>
+                	<option value="1">1</option>
+                </select>
             </div>
 
             <div class="modal-footer">
@@ -109,15 +112,10 @@ include "menu.php";
         </div>
     </div>
 </div>
-
-</div>
-
-</div>
-
 <?php include "menuFin.php"; ?>
 
 
-<script src="js/categorias.js"></script>
+<script src="js/variantes.js"></script>
 
 </body>
 

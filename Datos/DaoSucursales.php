@@ -17,17 +17,16 @@ class DaoSucursales
    }
  }
  public function registrarSucursales(PojoSucursales $obj)
- {
+ { 
   $clave=0;
   try 
   {
-   $sql = "INSERT INTO sucursales(id_sucursal, id_nombre_precio, nombre, no_corte, estatus) values(?, ?, ?, ?, ?)";
+   $sql = "INSERT INTO sucursales(id_nombre_precio, nombre, no_corte, estatus) values(?, ?, ?, ?)";
 
    $this->conectar();
    $this->conexion->prepare($sql)
    ->execute(
     array(
-     $obj->id_sucursal,
      $obj->id_nombre_precio,
      $obj->nombre,
      $obj->no_corte,
@@ -46,6 +45,35 @@ class DaoSucursales
     Conexion::cerrarConexion();
   }
 }
+
+public function getDatosCategoriaTabla()
+  {
+    try{
+
+      $this->conectar();
+    
+    //  $lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
+    //  $sentenciaSQL = $this->conexion->prepare("SELECT id_categoria, nombre, estatus FROM categoria  ORDER BY id_categoria DESC LIMIT 1"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+    //  $sentenciaSQL->execute();/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
+      /*Se recorre el cursor para obtener los datos*/
+
+    //  $data=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+        $consulta = "SELECT * FROM sucursales  ORDER BY id_sucursal DESC LIMIT 1";
+        $sentenciaSQL = $this->conexion->prepare($consulta);
+        $sentenciaSQL->execute();
+        $data=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+     
+     return $data;
+    }catch(Exception $e){
+      echo $e->getMessage();
+      return null;
+    }finally {
+      Conexion::cerrarConexion();
+    }
+  }
+
   public function eliminarSucursales($id)
   {
    try 
@@ -77,7 +105,7 @@ class DaoSucursales
       {
         $obj = new PojoSucursales();
         $obj->id_sucursal = $fila->id_sucursal;
-      }
+      } 
     return $obj->id_sucursal;
     }catch(Exception $e){
       echo $e->getMessage();

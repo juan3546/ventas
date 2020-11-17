@@ -11,30 +11,35 @@ $datos = "";
 $registro = "";
 
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
-$estatus = (isset($_POST['correo'])) ? $_POST['estatus'] : '';
-$nombre = (isset($_POST['telefono'])) ? $_POST['nombre'] : '';
-$estatus = (isset($_POST['direccion'])) ? $_POST['estatus'] : '';
-$nombre = (isset($_POST['estatus'])) ? $_POST['nombre'] : '';
+$correo = (isset($_POST['email'])) ? $_POST['email'] : '';
+$telefono = (isset($_POST['telefono'])) ? $_POST['telefono'] : '';
+$direccion = (isset($_POST['direccion'])) ? $_POST['direccion'] : '';
+$estatus = (isset($_POST['estatus'])) ? $_POST['estatus'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$id = (isset($_POST['idCategoria'])) ? $_POST['idCategoria'] : '';
+$id = (isset($_POST['id_cliente'])) ? $_POST['id_cliente'] : '';
 
 switch($opcion){
     case "insertar": //alta
-        $pojoCategoria->id_categoria = null;
-        $pojoCategoria->nombre = $nombre;
-        $pojoCategoria->estatus = intval($estatus);
-        $registro = $daoCliente->registrarCliente($pojoCategoria);
+        $pojoCliente->nombre = $nombre;
+        $pojoCliente->correo = $correo;
+        $pojoCliente->telefono = $telefono;
+        $pojoCliente->direccion = $direccion;
+        $pojoCliente->estatus = $estatus;
+        $registro = $daoCliente->registrarCliente($pojoCliente);
         $dato = $daoCliente->getDatosCliente();
         break;
     case "modificar":
-        $pojoCategoria->id_categoria = $id;
-        $pojoCategoria->nombre = $nombre;
-        $pojoCategoria->estatus = $estatus;
-        $registro = $daoCliente->editarCategoria($pojoCategoria);
-        $dato = $daoCliente->getDatosCategoriaTabla();
+        $pojoCliente->id_cliente = $id;
+        $pojoCliente->nombre = $nombre;
+        $pojoCliente->correo = $correo;
+        $pojoCliente->telefono = $telefono;
+        $pojoCliente->direccion = $direccion;
+        $pojoCliente->estatus = $estatus;
+        $registro = $daoCliente->editarCliente($pojoCliente);
+        $dato = $daoCliente->getDatosCliente();
     break;
     case "eliminar":
-        $registro = $daoCliente->EliminarEstatusCategoria($id);
+        $registro = $daoCliente->eliminarCliente($id);
     break;      
 }
 

@@ -45,10 +45,9 @@ include "menu.php";
                             <td><?php echo ($dat->{"telefono"}); ?></td>
                             <td><?php echo ($dat->{"direccion"}); ?></td>
                             <td><?php echo ($dat->{"estatus"}); ?></td>
-
                             <td>
                                 <button class="btn btn-primary btnEditar" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">Editar</button>
-                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_categoria'} ?>')">Eliminar</button>                            
+                                <button class="btn btn-danger glyphicon glyphicon-remove" onclick="preguntarSiNo('<?php echo $dat->{'id_cliente'} ?>')">Eliminar</button>                            
                             </td>
                         </tr>
                     <?php
@@ -104,7 +103,7 @@ include "menu.php";
             </div>
             <div class="modal-body">
                 <label>Id</label>
-                <input type="text" name="" id="idCliente" class="form-control input-sm">
+                <input type="text" name="" id="idCliente" class="form-control input-sm" readonly>
                 <label>Nombre</label>
                 <input type="text" name="" id="nombreMod" class="form-control input-sm">
                 <label>Correo</label>
