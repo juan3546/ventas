@@ -21,12 +21,6 @@
                       <label for="password">Contraseña</label>
                       <input type="password" class="form-control" id="password">
                     </div>
-                    <!--
-                    <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Recordar Contraseña</label>
-                    </div>
-                  -->
                     <button type="submit" id="entrar" class="btn btn-primary btn-block">Entrar</button>
                   </form>
             </section>
@@ -38,7 +32,6 @@
     <script src="presentacion/libs/jquery.min.js" ></script>
     <script src="presentacion/libs/popper.min.js"></script>
     <script src="presentacion/libs/bootstrap.min.js"></script>
-
     <script src="presentacion/js/login.js"></script>
 </body>
 </html>

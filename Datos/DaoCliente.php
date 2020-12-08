@@ -19,6 +19,7 @@ class DaoCliente
  public function registrarCliente(PojoCliente $obj)
  {
   $clave=0;
+  $obj->contraseña= password_hash($obj->contraseña, PASSWORD_DEFAULT);
   try 
   {
    $sql = "INSERT INTO `cliente`(`nombre`, `correo`, `telefono`, `direccion`, `estatus`) VALUES (?,?,?,?,?)";

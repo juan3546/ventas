@@ -9,13 +9,16 @@ $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 $password = (isset($_POST['password'])) ? $_POST['password'] : '';
 
 
-$datos = $daoLogin->getDatosLogin($usuario);
+$datos = $daoLogin->getDatosLogin($usuario, $password);
 
- foreach ($datos as $key => $dat) {
-
- 	if(password_verify($password, $dat->{"password"}) ){
- 		 echo true;
- 	}
+ if ($datos !=null) {
+  	$_SESSION['nombre'] = $datos->usuario ;
+    $_SESSION['id']= $datos->id ;
+  	 	echo "<script> window.location.href = '../presentacion/index.php '</script>";
+	    header('Location: ../presentacion/index.php');
+  }else{
+  	echo '<script> window.location.href = "../index.php ";</script>';
+  }
  }
 
 ?>

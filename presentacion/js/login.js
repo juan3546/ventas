@@ -18,8 +18,8 @@ $(document).ready(function(){
 			window.location.href = '../presentacion/empleados.php';
 			
 		}else{
-		//	alertify.error("Fallo el servidor :(");
-			//location.reload();
+			alertify.error("Fallo el servidor :(");
+			location.reload();
 		}
 	}
 });

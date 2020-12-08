@@ -15,28 +15,33 @@ class DaoLogin{
 		}
 	}
 
-	  public function getDatosLogin($usuario)
-  {
-    try{
-      $this->conectar();
-      $lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
-      $sentenciaSQL = $this->conexion->prepare("SELECT usuario, contraseña FROM usuarios WHERE usuario = '".$usuario."'"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
-      $sentenciaSQL->execute();/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
-      /*Se recorre el cursor para obtener los datos*/
-      foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
-      {
-        $obj = new PojoEmpleados();
-        $obj->usuario = $fila->usuario;
-        $obj->password = $fila->contraseña;
-        $lista[] = $obj;
-    }
-    return $lista;
-    }catch(Exception $e){
-      echo $e->getMessage();
-      return null;
-    }finally {
-      Conexion::cerrarConexion();
-    }
+	 public function obtenerUsuario($nombre, $clave){
+        
+  try {
+    $lista = array(); 
+    
+    $this->conectar();
+           $select=$this->conexion->prepare("SELECT * FROM usuarios WHERE usuario='$nombre'");
+           $select->execute();
+           $registro=$select->fetch();
+           if($registro != null){ 
+          if(password_verify($clave, $registro['contraseña'])){ 
+              $usuario = new PojoEmpleados();
+              $usuario->idusuario = $registro['idusuario'];
+              $usuario->nombre= $registro['nombre'];
+              $usuario->usuario= $registro['usuario'];
+              $usuario->password = $registro['contraseña'];
+              $usuario->estatus = $registro['estatus'];
+              
+              return $usuario;
+          }
+        }
+  } catch (Exception $e) {
+     return null;
+  }finally{
+    Conexion::cerrarConexion();
   }
+           
+    }
 }
 ?>
